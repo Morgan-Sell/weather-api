@@ -1,0 +1,13 @@
+flask
+bootstrap-flask
+flask_wtf
+wtforms
+pytest
+pytest-cov
+black
+isort
+ruff
+pytest-mock
+requests
+redis
+python-dotenv

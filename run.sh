@@ -10,7 +10,7 @@ THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export PYTHONPATH=$THIS_DIR
 
 # Function to open the default web browser with a specified URL
-function open-browser {
+function open-browser { # TODO: NEED TO FIX - BROWSER ISN"T OPENING
     local url=$1
     echo "Opening browser at $url..."
 
@@ -45,7 +45,7 @@ function load-env {
 }
 
 # Check for GitHub token
-function check-github-token {
+function check-github-token { # TODO: update to Visual Crossing and Redis
     load-env
     if [ -z "$GITHUB_TOKEN"]; then
         echo "GITHUB_TOKEN is not set. Add it to your .env file."
@@ -74,7 +74,7 @@ function install-deps {
 # Run all setup tasks after cloning the repo
 function initial-setup {
     echo "Running initial setup..."
-    check-github-token
+    # check-github-token
     setup-venv
     install-deps
     echo "Initial setup completed. You're ready to go!"
