@@ -7,11 +7,19 @@ from src.config import REDIS_STORAGE_DURATION
 
 # Connect to Redis
 try:
-    r = redis.Redis(host="localhost", port=6379, db=0)
+    redis_client = redis.Redis(host="localhost", port=6379, db=0)
     print("Connected to Redis successfully.")
 except Exception as e:
     print(f"Error connecting to Redis: {e}")
 
+
+
+def check_if_cache_key_exists(cache_key: str) -> bool:
+    try:
+        return redis_client.exists(cache_key) == 1
+    except Exception as e:
+        print(f"Error checking if cach key exists in Redis: {e}")
+        return False
 
 def get_weather(endpoint: str, location: str, unit: str, api_key: str) -> dict:
     try:
@@ -41,3 +49,28 @@ def get_weather(endpoint: str, location: str, unit: str, api_key: str) -> dict:
     except Exception as e:
         print(f"An error occurred in get_weather: {e}")
         return None
+
+
+@dataclass
+class WeatherData:
+    city: str
+    address: str
+    datetime_str: str
+    conditions: str
+    temperature: float
+    humidity: float
+    uv_index: float
+    heat_index: float
+
+    def to_json(self) -> str:
+        """Convert data class to JSON string for Redis storage."""
+        return json.dumps(self.__dict__)
+
+
+    @staticmethod
+    def from_json(data: str):
+        return WeatherData(**json.loads(data))
+
+
+def extract_relevant_data(data: dict, data_loc: list, vars: list)
+    
