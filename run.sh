@@ -26,9 +26,22 @@ function open-browser { # TODO: NEED TO FIX - BROWSER ISN"T OPENING
     fi
 }
 
+# Start Redis server
+function start-redis {
+    if pgrep redis-server > /dev/null; then
+        echo "Redis server is already running."
+    
+    else
+        echo "Starting Redis server..."
+        redis-server &
+        sleep 2 # Allow Redis time to start
+        echo "Redis server started."
+    fi
+}
+
 # Run application once configuration is setup
 function run-app {
-    # echo "Running application with PYTHONPATH=$PYTHONPATH"
+    start-redis
     python src/main.py
 }
 
