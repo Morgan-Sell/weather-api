@@ -1,8 +1,10 @@
+from dataclasses import dataclass
 import redis
 import json
 
 from src.api import fetch_weather_api
 from src.config import REDIS_STORAGE_DURATION
+from src.operations import extract_date, extract_time
 
 
 # Connect to Redis
@@ -13,7 +15,6 @@ except Exception as e:
     print(f"Error connecting to Redis: {e}")
 
 
-
 def check_if_cache_key_exists(cache_key: str) -> bool:
     try:
         return redis_client.exists(cache_key) == 1
@@ -21,56 +22,43 @@ def check_if_cache_key_exists(cache_key: str) -> bool:
         print(f"Error checking if cach key exists in Redis: {e}")
         return False
 
-def get_weather(endpoint: str, location: str, unit: str, api_key: str) -> dict:
-    try:
-        # Check if weather data is already in Redis
-        cache_key = f"weather:{location.lower()}"
-        cached_data = r.get(cache_key)
-
-        if cached_data:
-            # Data found in cache, return data after decoding
-            weather_data = json.loads(cached_data)
-            print("Retrieved from cache:", weather_data)
-        
-        else:
-            # Data not in cache, fet it from the API
-            print(f"No cached data found for {location}. Fetching from API...")
-            weather_data = fetch_weather_api(endpoint, location, unit, api_key)
-            if weather_data:
-                # Store the fetched data in Redis for future requests
-                print("Fetched from API and cached:", weather_data)
-                r.setex(cache_key, REDIS_STORAGE_DURATION, json.dumps(weather_data))
-            else:
-                print(f"Could not fetch data for {location}.")
-                return None
-
-        return weather_data
-    
-    except Exception as e:
-        print(f"An error occurred in get_weather: {e}")
-        return None
-
 
 @dataclass
 class WeatherData:
     city: str
     address: str
-    datetime_str: str
-    conditions: str
+    date_str: str
     temperature: float
+    icon: str
+    sunrise: str
+    sunset: str
     humidity: float
-    uv_index: float
-    heat_index: float
+    visibility: float
+    precipitation: float
 
     def to_json(self) -> str:
         """Convert data class to JSON string for Redis storage."""
         return json.dumps(self.__dict__)
 
 
-    @staticmethod
-    def from_json(data: str):
-        return WeatherData(**json.loads(data))
+def extract_relevant_data(data: dict, location: str) -> WeatherData:
+    current_conditions = data["locations"][location]["currentConditions"]
+
+    weather_data = WeatherData(
+        city=location,
+        address=data["locations"][location]["address"],
+        date_str=extract_date(current_conditions.get("datetime")),
+        temperature=current_conditions.get("temp"),
+        icon=current_conditions.get("icon"),
+        sunrise=extract_time(current_conditions.get("sunrise")),
+        sunset=extract_time(current_conditions.get("sunset")),
+        humidity=current_conditions.get("humidity"),
+        visibility=current_conditions.get("visibility"),
+        precipitation=current_conditions.get("precip"),
+    )
+
+    return weather_data
 
 
-def extract_relevant_data(data: dict, data_loc: list, vars: list)
-    
+def save_data_in_cache(cache_key: str, data: dict) -> None:
+    redis_client.setex(cache_key, REDIS_STORAGE_DURATION, json.dumps(data))

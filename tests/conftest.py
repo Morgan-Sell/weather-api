@@ -5,60 +5,38 @@ import pytest
 def weather_api_data():
     """Fixture that returns simplified mock data for weather API response."""
     return {
-        "columns": {
-            "address": {"id": "address", "name": "Address", "type": 1, "unit": None},
-            "temp": {"id": "temp", "name": "Temperature", "type": 2, "unit": "degf"},
-            "humidity": {
-                "id": "humidity",
-                "name": "Relative Humidity",
-                "type": 2,
-                "unit": None,
-            },
-            "conditions": {
-                "id": "conditions",
-                "name": "Conditions",
-                "type": 1,
-                "unit": None,
-            },
-            "datetime": {
-                "id": "datetime",
-                "name": "Date time",
-                "type": 3,
-                "unit": None,
-            },
-        },
         "locations": {
             "Santa Monica": {
+                "id": "Santa Monica",
                 "address": "Santa Monica, CA, United States",
+                "name": "Santa Monica",
+                "index": 0,
+                "latitude": 34.0116,
+                "longitude": -118.492,
+                "distance": 0.0,
+                "time": 0.0,
+                "tz": "America/Los_Angeles",
                 "currentConditions": {
-                    "temp": 61.8,
-                    "humidity": 82.3,
-                    "conditions": "Clear",
-                    "datetime": "2024-10-26T10:35:00-07:00",
-                },
-                "values": [
-                    {
-                        "temp": 64.2,
-                        "humidity": 89.5,
-                        "conditions": "Overcast",
-                        "datetimeStr": "2024-10-26T00:00:00-07:00",
-                    },
-                    {
-                        "temp": 73.2,
-                        "humidity": 67.3,
-                        "conditions": "Sunny",
-                        "datetimeStr": "2024-10-27T00:00:00-07:00",
-                    },
-                    {
-                        "temp": 69.5,
-                        "humidity": 78.8,
-                        "conditions": "Windy",
-                        "datetimeStr": "2024-10-28T00:00:00-07:00",
-                    },
-                ],
+                    "wdir": 191.0,
+                    "temp": 65.7,
+                    "sunrise": "2024-10-28T07:10:33-07:00",
+                    "visibility": 9.9,
+                    "wspd": 6.6,
+                    "icon": "cloudy",
+                    "stations": "",
+                    "heatindex": "null",
+                    "cloudcover": 100.0,
+                    "datetime": "2024-10-28T13:42:00-07:00",
+                    "precip": 0.0,
+                    "moonphase": 0.88,
+                    "snowdepth": "null",
+                    "sealevelpressure": 1012.0,
+                    "dew": 56.9,
+                    "sunset": "2024-10-28T18:04:26-07:00",
+                    "humidity": 73.3,
+                    "wgust": 8.9,
+                    "windchill": "null"
+                    }
+                }
             }
-        },
-        "messages": None,
-        "queryCost": 1,
-        "remainingCost": 0,
-    }
+        }

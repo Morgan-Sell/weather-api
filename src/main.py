@@ -1,3 +1,4 @@
+import json
 import os
 from pprint import pprint
 
@@ -6,13 +7,13 @@ import redis
 
 from src.api import fetch_weather_api
 from src.config import VISUAL_CROSSING_API_URL
-from src.weather_cache import get_weather
+from src.weather_cache import check_if_cache_key_exists, get_weather
 
 load_dotenv()
 
 api_key = os.getenv("VISUAL_CROSSING_API_KEY")
 
-
+redis_client = redis.Redis(host="localhost", port=6379, db=0)
 
 
 def main():
@@ -34,7 +35,22 @@ def main():
     
     """
     
-    pprint(get_weather("forecast", "Santa Monica", "us", api_key))
+
+    # User input
+    location = "Santa Monica"
+    cache_key = location.lower()
+    
+    # Decide whether to fetch data from Redis or API
+    location_is_cached: bool = check_if_cache_key_exists(cache_key)
+
+    if location_is_cached is True:
+        pass
+
+    else:
+        data = fetch_weather_api("forecast", location, "us", api_key)
+
+        with open("weather.json", 'w') as json_file:
+            json.dump(data, json_file, indent=4)
 
     # pprint(fetch_weather_api("forecast", "Baltimore", "us", api_key))
 
