@@ -35,8 +35,8 @@ def weather_api_data():
                     "sunset": "2024-10-28T18:04:26-07:00",
                     "humidity": 73.3,
                     "wgust": 8.9,
-                    "windchill": "null"
-                    }
-                }
+                    "windchill": "null",
+                },
             }
         }
+    }
