@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Search Weather{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2 class="mt-4">Check the Weather</h2>
+    <p class="lead">Enter a city to get the latest weather information.</p>
+</div>
+<form action="{{ url_for('index') }}" method="post" class="mt-4">
+    {{ form.hidden_tag() }}
+    <div class="form-group mb-3">
+        {{ form.location.label(class="form-label") }}
+        {{ form.location(class="form-control", placeholder="Enter city name") }}
+    </div>
+    <div class="d-grid">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
+{% endblock %}

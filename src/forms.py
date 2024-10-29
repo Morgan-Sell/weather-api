@@ -5,4 +5,4 @@ from wtforms.validators import DataRequired
 
 class LocationForm(FlaskForm):
     location = StringField("Enter any city in the world: ", validators=[DataRequired()])
-    convert = SubmitField(label="Collect Weather Data")
+    submit = SubmitField(label="Collect Weather Data")
