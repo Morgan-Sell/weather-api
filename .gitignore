@@ -164,3 +164,7 @@ cython_debug/
 
 # Redis
 *.rdb
+
+
+# Other
+*.DS_Store

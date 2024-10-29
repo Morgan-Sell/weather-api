@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
-
 {% block title %}Weather in {{ weather_data.location }}{% endblock %}
 
 {% block content %}
-<div class="card text-center mt-4">
+<div class="card text-center mt-4 mx-auto enlarged-card">
     <div class="card-header bg-primary text-white">
-        <h3>Weather in {{ weather_data.location }}</h3>
+        <h3>{{ weather_data.location }}</h3> <!-- Display location name prominently -->
     </div>
     <div class="card-body">
         <h4 class="card-title">{{ weather_data.temperature }} °F</h4>
@@ -14,13 +13,19 @@
         <p class="card-text"><strong>Humidity:</strong> {{ weather_data.humidity }}%</p>
         <p class="card-text"><strong>Visibility:</strong> {{ weather_data.visibility }} miles</p>
         <div class="row mt-4">
-            <div class="col">
-                <p><strong>Sunrise:</strong> {{ weather_data.sunrise }}</p>
+            <div class="col text-center">
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{{ url_for('static', filename='img/sunrise.png') }}" alt="Sunrise Icon" class="sun-icon mb-2">
+                    <p><strong>Sunrise:</strong> {{ weather_data.sunrise }}</p>
+                </div>
             </div>
-            <div class="col">
-                <p><strong>Sunset:</strong> {{ weather_data.sunset }}</p>
+            <div class="col text-center">
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{{ url_for('static', filename='img/sunset.png') }}" alt="Sunset Icon" class="sun-icon mb-2">
+                    <p><strong>Sunset:</strong> {{ weather_data.sunset }}</p>
+                </div>
             </div>
-        </div>
+        </div>        
     </div>
     <div class="card-footer">
         <a href="{{ url_for('index') }}" class="btn btn-secondary">Check Another City</a>

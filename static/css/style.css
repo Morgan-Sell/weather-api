@@ -26,3 +26,77 @@ body {
 h2, h3 {
     font-weight: 600;
 }
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.image-container {
+    flex: 1; /* Take up one-third of the width */
+    max-width: 33%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+    background-color: #e0f7fa;
+}
+
+.image-container img {
+    width: 100%; /* Full width of the container */
+    height: auto; /* Adjust height to maintain aspect ratio */
+    object-fit: contain; /* Ensure the whole image is visible */
+}
+.content-container {
+    flex: 2; /* Takes up the remaining two-thirds */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.input-wide {
+    width: 100% !important;
+    max-width: 600px !important; /* Set a max width to control the overall width */
+}
+
+.card-header h3 {
+    font-size: 1.5em; /* Makes the location name more prominent */
+}
+
+.card-body img {
+    margin-right: 5px; /* Adds space between icons and text */
+    vertical-align: middle; /* Aligns icons with text */
+}
+
+.sun-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 5px;
+}
+
+.col p {
+    margin: 0; /* Reduces extra space around paragraphs if needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Adds space between "Sunset:" and the time */
+}
+
+
+.enlarged-card {
+    max-width: 700px;
+    width: 90%;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+}
