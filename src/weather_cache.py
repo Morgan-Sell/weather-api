@@ -45,6 +45,9 @@ class WeatherData:
     visibility: float
     precipitation: float
 
+    def __post_init__(self):
+        self.icon = self.icon.replace("-", " ").title()
+
     def to_json(self) -> str:
         """Convert data class to JSON string for Redis storage."""
         return json.dumps(self.__dict__)

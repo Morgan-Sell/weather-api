@@ -57,7 +57,7 @@ def test_weather_data_to_json():
         address="Santa Monica, CA, United States",
         date_str="2024-10-28",
         temperature=65.7,
-        icon="cloudy",
+        icon="sunny-rain",
         sunrise="2024-10-28T07:10:33-07:00",
         sunset="2024-10-28T18:04:26-07:00",
         humidity=73.3,
@@ -70,11 +70,11 @@ def test_weather_data_to_json():
 
     # Assert: Check if the JSON data matches the expected dictionary
     expected_dict = {
-        "city": "Santa Monica",
+        "location": "Santa Monica",
         "address": "Santa Monica, CA, United States",
         "date_str": "2024-10-28",
         "temperature": 65.7,
-        "icon": "cloudy",
+        "icon": "Sunny Rain",
         "sunrise": "2024-10-28T07:10:33-07:00",
         "sunset": "2024-10-28T18:04:26-07:00",
         "humidity": 73.3,
@@ -99,7 +99,7 @@ def test_extract_relevant_data(weather_api_data):
     assert result.address == "Santa Monica, CA, United States"
     assert result.date_str == "2024-10-28"
     assert result.temperature == 65.7
-    assert result.icon == "cloudy"
+    assert result.icon == "Sunny Rain"
     assert result.sunrise == "07:10:33"
     assert result.sunset == "18:04:26"
     assert result.humidity == 73.3

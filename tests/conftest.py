@@ -22,7 +22,7 @@ def weather_api_data():
                     "sunrise": "2024-10-28T07:10:33-07:00",
                     "visibility": 9.9,
                     "wspd": 6.6,
-                    "icon": "cloudy",
+                    "icon": "sunny-rain",
                     "stations": "",
                     "heatindex": "null",
                     "cloudcover": 100.0,
