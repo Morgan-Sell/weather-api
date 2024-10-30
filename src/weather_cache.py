@@ -34,7 +34,7 @@ def get_from_cache(cache_key: str) -> dict:
 
 @dataclass
 class WeatherData:
-    city: str
+    location: str
     address: str
     date_str: str
     temperature: float
@@ -58,7 +58,7 @@ def extract_relevant_data(data: dict, location: str) -> WeatherData:
     current_conditions = data["locations"][location]["currentConditions"]
 
     weather_data = WeatherData(
-        city=location,
+        location=location,
         address=data["locations"][location]["address"],
         date_str=extract_date(current_conditions.get("datetime")),
         temperature=current_conditions.get("temp"),

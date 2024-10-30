@@ -69,10 +69,6 @@ body, html {
     max-width: 600px !important; /* Set a max width to control the overall width */
 }
 
-.card-header h3 {
-    font-size: 1.5em; /* Makes the location name more prominent */
-}
-
 .card-body img {
     margin-right: 5px; /* Adds space between icons and text */
     vertical-align: middle; /* Aligns icons with text */
@@ -99,4 +95,19 @@ body, html {
     padding: 20px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     margin: 0 auto;
+}
+
+
+.custom-card-header {
+    background-color: #4a90e2; /* Cooler blue shade */
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.5em;
+    font-family: 'Georgia', serif;
+    padding: 15px;
+}
+
+.custom-card-header h3 {
+    margin: 0;
 }

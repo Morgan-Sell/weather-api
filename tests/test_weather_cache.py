@@ -53,7 +53,7 @@ def test_check_if_cache_key_exists_redis_error(mock_redis_client):
 def test_weather_data_to_json():
     # Arrange: Create a WeatherData instance
     weather_data = WeatherData(
-        city="Santa Monica",
+        location="Santa Monica",
         address="Santa Monica, CA, United States",
         date_str="2024-10-28",
         temperature=65.7,
@@ -95,7 +95,7 @@ def test_extract_relevant_data(weather_api_data):
     assert isinstance(result, WeatherData)
 
     # Assert: Verify each attribute of the returned WeatherData object
-    assert result.city == "Santa Monica"
+    assert result.location == "Santa Monica"
     assert result.address == "Santa Monica, CA, United States"
     assert result.date_str == "2024-10-28"
     assert result.temperature == 65.7
