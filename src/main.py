@@ -23,7 +23,7 @@ app.config["SECRET_KEY"] = "super_secret_key"
 
 load_dotenv()
 
-api_key = os.getenv("VISUAL_CROSSING_API_KEY")
+api_key = os.getenv("API_KEY")
 
 redis_client = redis.Redis(host="localhost", port=6379, db=0)
 

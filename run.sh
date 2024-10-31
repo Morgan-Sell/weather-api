@@ -9,22 +9,6 @@ THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # Set Python Path
 export PYTHONPATH=$THIS_DIR
 
-# Function to open the default web browser with a specified URL
-function open-browser { # TODO: NEED TO FIX - BROWSER ISN"T OPENING
-    local url=$1
-    echo "Opening browser at $url..."
-
-    # Check the operating system and open the browser with the appropriate command
-    if which xdg-open > /dev/null; then
-        xdg-open "$url"  # For Linux
-    elif which open > /dev/null; then
-        open "$url"      # For macOS
-    elif which start > /dev/null; then
-        start "$url"     # For Windows (Git Bash or Cygwin)
-    else
-        echo "Please manually open a browser and navigate to $url"
-    fi
-}
 
 # Start Redis server
 function start-redis {
@@ -45,26 +29,32 @@ function run-app {
     python src/main.py
 }
 
+# Check if .env file exists and contains API_KEY
+function check-api-key {
+    if [ -f "$THIS_DIR/.env" ]; then
+        echo ".env file found."
+        if grep -q "API_KEY=" "$THIS_DIR/.env"; then
+            echo "API_KEY is set in the .env file."
+        else
+            echo "API_KEY is not set in the .env file. Please add it and try again."
+            exit 1
+        fi
+    else
+        echo ".env file not found! Please create a .env file and add API_KEY=<your_api_key>."
+        exit 1
+    fi
+}
+
 
 # Load environment variables from .env file
 function load-env {
-    if [ -f "$THIS_DIR/.env" ]; then
-        echo "Loading environment variables from .env file..."
-        export $(cat "$THIS_DIR/.env" | xargs)
-    else
-        echo ".env file not found! Create one and include GITHUB_TOKEN."
-        exit 1
-    fi
+    check-api-key
+    echo "Loading environment variables from .env file..."
+    export $(grep -v '^\s*#' "$THIS_DIR/.env" | grep -v '^\s*$' | xargs)  # Ignores comment and blank lines
 }
 
-# Check for GitHub token
-function check-github-token { # TODO: update to Visual Crossing and Redis
-    load-env
-    if [ -z "$GITHUB_TOKEN"]; then
-        echo "GITHUB_TOKEN is not set. Add it to your .env file."
-        exit 1
-    fi
-}
+
+
 
 # Set up a virtual environment
 function setup-venv {
@@ -87,7 +77,7 @@ function install-deps {
 # Run all setup tasks after cloning the repo
 function initial-setup {
     echo "Running initial setup..."
-    # check-github-token
+    load-env
     setup-venv
     install-deps
     echo "Initial setup completed. You're ready to go!"
@@ -117,9 +107,6 @@ case "$1" in
         ;;
     load-env)
         load-env
-        ;;
-    check-github-token)
-        check-github-token
         ;;
     setup-venv)
         setup-venv
