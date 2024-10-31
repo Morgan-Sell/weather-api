@@ -29,10 +29,10 @@ def test_fetch_weather_api_success(mock_urlopen, weather_api_data):
     # Assert
     assert isinstance(data, dict)
     assert location in data["locations"]
-    assert len(data["locations"][location]["values"]) == 3
+    assert len(data["locations"][location]) == 10
 
-    assert data["locations"][location]["currentConditions"]["temp"] == 61.8
-    assert data["locations"][location]["values"][0]["conditions"] == "Overcast"
+    assert data["locations"][location]["currentConditions"]["temp"] == 65.7
+    assert data["locations"][location]["currentConditions"]["icon"] == "sunny-rain"
 
 
 @patch("requests.get")
