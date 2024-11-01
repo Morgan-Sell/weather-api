@@ -1,10 +1,8 @@
-import json
 import os
-from pprint import pprint
 
 import redis
 from dotenv import load_dotenv
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, url_for
 
 from src.api import fetch_weather_api
 from src.config import VISUAL_CROSSING_API_URL

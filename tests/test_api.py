@@ -1,13 +1,9 @@
-import json
-import urllib
-from pprint import pprint
 from unittest.mock import MagicMock, patch
 
 import pytest
 import requests
 
 from src.api import fetch_weather_api
-from src.config import VISUAL_CROSSING_API_URL
 
 
 @patch("requests.get")
