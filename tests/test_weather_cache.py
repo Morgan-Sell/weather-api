@@ -111,7 +111,7 @@ def test_extract_relevant_data(weather_api_data):
 def test_get_from_cach_existing_key(mock_redis_client):
     # Arrange: Set up mock to return JSON data
     mock_data = {"city": "Santa Monica", "temperature": 65.7}
-    mock_redis_client.get.return_value = json.dumps(mock_data).encode('utf-8')
+    mock_redis_client.get.return_value = json.dumps(mock_data).encode("utf-8")
 
     # Act
     result = get_from_cache("existing_key")

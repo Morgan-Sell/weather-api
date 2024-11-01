@@ -4,18 +4,17 @@ from pprint import pprint
 
 import redis
 from dotenv import load_dotenv
+from flask import Flask, redirect, render_template, request, url_for
 
 from src.api import fetch_weather_api
 from src.config import VISUAL_CROSSING_API_URL
+from src.forms import LocationForm
 from src.weather_cache import (
     check_if_cache_key_exists,
     extract_relevant_data,
     get_from_cache,
     save_data_in_cache,
 )
-
-from flask import Flask, render_template, request, redirect, url_for
-from src.forms import LocationForm
 
 app = Flask(__name__, static_folder="../static", template_folder="../templates")
 app.config["SECRET_KEY"] = "super_secret_key"

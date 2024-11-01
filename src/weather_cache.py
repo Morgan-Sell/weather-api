@@ -72,6 +72,7 @@ class WeatherData:
         to_json() -> str: Converts the instance to a JSON string.
         to_dict() -> dict: Converts the instance to a dictionary.
     """
+
     location: str
     address: str
     date_str: str
@@ -105,7 +106,7 @@ def extract_relevant_data(data: dict, location: str) -> WeatherData:
 
     Returns:
         WeatherData: An instance containing structured weather data.
-    """    
+    """
     current_conditions = data["locations"][location]["currentConditions"]
 
     weather_data = WeatherData(
