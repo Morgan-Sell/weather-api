@@ -66,7 +66,7 @@ When you access http://127.0.0.1:5001 via your web browser, you'll be greeted by
 Enter the name of your desired city into text box.
 
 <p align="center">
-    <img src="./static/img/sumbit.png" alt="Submission"/>
+    <img src="./static/img/submit.png" alt="Submission"/>
 </p>
 
 ### 3. See the Results
@@ -91,6 +91,47 @@ You can manage the environment and dependencies using `run.sh`:
 - **Easy Setup:** Simple bash script for environment setup, dependency installation, and application management.
 
 ## Configuration
-- **Redis Configuration:** The application relies on Redis to cache weather data. The Redis server starts automatically through run.sh, but you may need to ensure it is accessible and configured properly.
+- **Redis Configuration:** The application relies on Redis to cache weather data. The Redis server starts automatically through `run.sh run-app`, but you may need to ensure it is accessible and configured properly.
 
-- **Weather API Key:** Obtain an API key from your preferred weather service provider and add it to the .env file.
+- **Weather API Key:** Obtain an API key from your preferred weather service provider and add it to the `.env` file.
+  
+    ```
+    API_KEY=<your_weather_api_key>
+    ```
+
+## Dependencies
+
+All the required dependencies can be found in `requirements.txt`. The dependencies are automatically installed when `run.sh initial-setup` is executed.
+
+## Troubleshooting
+
+- **Environment Variables:** Missing environment variables will prevent the application from running. Ensure they are correctly defined in your `.env` file.
+
+- **Redis Issues:** Redis will automatically start when `run.sh run-app`. If Redis is not properly terminated, the Redis server may enter a "stopped" or "zombie" stated preventing the application from properly functioning. If this occurs follow the following steps:
+
+1. Check if Redis is already running on your system.
+
+    ```
+    ps aux | grep redis
+    ```
+This will show any existing Redis processes. Look for a process running on port 6379.
+
+2. If a Redis process is running, kill the process.
+
+    ```
+    sudo kill -9  <pid>
+    ```
+Replace <pid> with the process ID of the running Redis server.
+
+3.  Confirm the process has been terminated by reruning: 
+
+    ```
+    ps aux | grep redis
+    ```
+
+
+## License
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+## Acknowledgement
+This application was built following the architecture outlined in [roadmap.sh's Weather API project](https://roadmap.sh/projects/weather-api-wrapper-service).
