@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from flask import Flask, redirect, render_template, url_for
 
 from src.api import fetch_weather_api
-from src.config import VISUAL_CROSSING_API_URL
 from src.forms import LocationForm
 from src.weather_cache import (
     check_if_cache_key_exists,
