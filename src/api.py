@@ -1,5 +1,3 @@
-import json
-
 import requests
 
 from src.config import VISUAL_CROSSING_API_URL
@@ -40,12 +38,12 @@ def fetch_weather_api(endpoint: str, location: str, unit: str, api_key: str) -> 
     try:
         response = requests.get(base_url, params, timeout=5)
         response.raise_for_status()  # raises an error  for 4xx/5xx responses
-    except requests.exceptions.ConnectionError:
+    except requests.exceptions.ConnectionError as connect_err:
         raise ConnectionError(
             "Failed to connect to the API. Check your network connection."
-        )
-    except requests.exceptions.Timeout:
-        raise TimeoutError("The request timed out. Try again later.")
+        ) from connect_err
+    except requests.exceptions.Timeout as timeout_err:
+        raise TimeoutError("The request timed out. Try again later.") from timeout_err
     except requests.exceptions.HTTPError as http_err:
         if response.status_code == 400:
             raise ValueError(

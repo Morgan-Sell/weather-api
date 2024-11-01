@@ -3,7 +3,6 @@ from dataclasses import dataclass
 
 import redis
 
-from src.api import fetch_weather_api
 from src.config import REDIS_STORAGE_DURATION
 from src.operations import extract_date, extract_time
 
