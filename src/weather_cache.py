@@ -8,7 +8,11 @@ from src.config import REDIS_STORAGE_DURATION
 from src.operations import extract_date, extract_time
 
 # Connect to Redis
-redis_client = redis.Redis(host="localhost", port=6379, db=0)
+try:
+    redis_client = redis.Redis(host="localhost", port=6379, db=0)
+    print("Connected to Redis successfully.")
+except Exception as e:
+    print(f"Error connecting to Redis: {e}")
 
 
 def check_if_cache_key_exists(cache_key: str) -> bool:
@@ -22,6 +26,7 @@ def check_if_cache_key_exists(cache_key: str) -> bool:
         bool: True if the cache key exists, False otherwise.
     """
     try:
+        print(f"Looking for {cache_key} in cache")
         return redis_client.exists(cache_key) == 1
     except Exception as e:
         print(f"Error checking if cach key exists in Redis: {e}")

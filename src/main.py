@@ -23,7 +23,7 @@ app.config["SECRET_KEY"] = "super_secret_key"
 
 load_dotenv()
 
-api_key = os.getenv("API_KEY")
+api_key = os.getenv("VISUAL_CROSSING_API_KEY")
 
 redis_client = redis.Redis(host="localhost", port=6379, db=0)
 
@@ -34,13 +34,15 @@ def index():
 
     if form.validate_on_submit():
         location = form.location.data
+        print(f"Form submitted with city: {location}")
         return redirect(url_for("get_weather", location=location))
     return render_template("index.html", form=form)
 
 
-@app.route("/weather/<location>")
+@app.route("/weather/<location>", methods=["GET"])
 def get_weather(location):
     cache_key = location.lower()
+
     # Decide whether to fetch data from Redis or API
     location_is_cached: bool = check_if_cache_key_exists(cache_key)
 
@@ -56,33 +58,12 @@ def get_weather(location):
         weather_data = extract_relevant_data(all_data, location)
         save_data_in_cache(cache_key, weather_data.to_dict())
 
+        # Check if weather_data is None or incomplete
+        if not weather_data:
+            print("Error: No weather data found.")
+            return "Error: No weather data found.", 500
+
     return render_template("results.html", weather_data=weather_data)
-
-
-
-# def main():
-    
-
-
-#     # User input
-#     location = "Buenos Aires"
-#     cache_key = location.lower()
-
-#     # Decide whether to fetch data from Redis or API
-#     location_is_cached: bool = check_if_cache_key_exists(cache_key)
-
-#     if location_is_cached is True:
-#         print(f"Found data for {cache_key} in cache.")
-#         weather_results = get_from_cache(cache_key)
-
-#     else:
-#         print(f"No data found in cache for {cache_key}")
-#         print("Fetching data from weather API...")
-
-#         data = fetch_weather_api("forecast", location, "us", api_key)
-#         weather_results = extract_relevant_data(data, location)
-#         save_data_in_cache(cache_key, weather_results.to_dict())
-
 
 
 if __name__ == "__main__":

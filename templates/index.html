@@ -7,7 +7,7 @@
     <h2 class="mt-4">Check the Weather</h2>
     <p class="lead">Enter a city to get the latest weather information.</p>
 </div>
-<form action="{{ url_for('index') }}" method="post" class="mt-4">
+<form action="{{ url_for('index') }}" method="post" class="mt-4" onsubmit="updateActionURL()">
     {{ form.hidden_tag() }}
     <div class="form-group mb-3">
         {{ form.location.label(class="form-label") }}
@@ -17,4 +17,14 @@
         {{ form.submit(class="btn btn-primary") }}
     </div>
 </form>
+
+<script>
+    function updateActionURL() {
+        const form = document.getElementById("weather-form");
+        const location = document.getElementById("location").value;  // Retrieve value using ID
+        console.log(`Location entered: ${location}`);  // Debugging: Check location input value
+        form.action = `/weather/${encodeURIComponent(location)}`;  // Update action URL with location
+        console.log(`Form action updated to: ${form.action}`);  // Debugging: Confirm updated action URL
+    }
+</script>
 {% endblock %}

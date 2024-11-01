@@ -38,7 +38,7 @@ def fetch_weather_api(endpoint: str, location: str, unit: str, api_key: str) -> 
     }
 
     try:
-        response = requests.get(base_url, params)
+        response = requests.get(base_url, params, timeout=5)
         response.raise_for_status()  # raises an error  for 4xx/5xx responses
     except requests.exceptions.ConnectionError:
         raise ConnectionError(
