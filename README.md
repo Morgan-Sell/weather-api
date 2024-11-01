@@ -8,12 +8,13 @@ The application obtains data from [Visiual Crossing's API](https://www.visualcro
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Application Walkthrough](#application-walkthrough)
 - [Features](#features)
 - [Configuration](#configuration)
 - [Dependencies](#dependencies)
 - [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
 - [License](#license)
+- [Acknowledgement](#acknowledgement)
 
 ## Installation
 
@@ -43,9 +44,7 @@ The application obtains data from [Visiual Crossing's API](https://www.visualcro
 
 To start the application, run the following command:
 
-    ```
     ./run.sh run-app
-    ```
 
 This will:
 
@@ -63,7 +62,7 @@ When you access http://127.0.0.1:5001 via your web browser, you'll be greeted by
 </p>
 
 ### 2. Submit Location
-Enter the name of your desired city into text box.
+Enter the name of your desired city in the text box.
 
 <p align="center">
     <img src="./static/img/submit.png" alt="Submission"/>
@@ -93,7 +92,7 @@ You can manage the environment and dependencies using `run.sh`:
 ## Configuration
 - **Redis Configuration:** The application relies on Redis to cache weather data. The Redis server starts automatically through `run.sh run-app`, but you may need to ensure it is accessible and configured properly.
 
-- **Weather API Key:** Obtain an API key from your preferred weather service provider and add it to the `.env` file.
+- **Weather API Key:** Obtain an API key from Visiual Crossing and add it to the `.env` file.
   
     ```
     API_KEY=<your_weather_api_key>
@@ -107,7 +106,7 @@ All the required dependencies can be found in `requirements.txt`. The dependenci
 
 - **Environment Variables:** Missing environment variables will prevent the application from running. Ensure they are correctly defined in your `.env` file.
 
-- **Redis Issues:** Redis will automatically start when `run.sh run-app`. If Redis is not properly terminated, the Redis server may enter a "stopped" or "zombie" stated preventing the application from properly functioning. If this occurs follow the following steps:
+- **Redis Issues:** Redis will automatically start when `run.sh run-app`. If Redis is not properly terminated, the Redis process may enter a "stopped" or "zombie" state preventing the application from properly functioning. If this occurs follow these steps:
 
 1. Check if Redis is already running on your system.
 
@@ -116,14 +115,14 @@ All the required dependencies can be found in `requirements.txt`. The dependenci
     ```
 This will show any existing Redis processes. Look for a process running on port 6379.
 
-2. If a Redis process is running, kill the process.
+1. If a Redis process is running, kill the process.
 
     ```
     sudo kill -9  <pid>
     ```
 Replace <pid> with the process ID of the running Redis server.
 
-3.  Confirm the process has been terminated by reruning: 
+1.  Confirm the process has been terminated by rerunning: 
 
     ```
     ps aux | grep redis
