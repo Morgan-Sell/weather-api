@@ -59,21 +59,21 @@ This will:
 When you access http://127.0.0.1:5001 via your web browser, you'll be greeted by the home page.
 
 <p align="center">
-    <img "./static/img/home.png" alt="Home Page">
+    <img src="./static/img/home.png" alt="Home Page">
 </p>
 
 ### 2. Submit Location
 Enter the name of your desired city into text box.
 
 <p align="center">
-    <img "./static/img/sumbit.png" alt="Submission">
+    <img src="./static/img/sumbit.png" alt="Submission">
 </p>
 
 ### 3. See the Results
 Select "Collect Weather Data" and you will be directing to the current weather for your selected location.
 
 <p align="center">
-    <img "./static/img/results.png" alt="Results">
+    <img src="./static/img/results.png" alt="Results">
 </p>
 
 ### Available Commands
